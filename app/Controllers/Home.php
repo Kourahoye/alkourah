@@ -287,12 +287,20 @@ class Home extends BaseController
         //$pdf->setMargins(PDF_MARGIN_LEFT,PDF_MARGIN_TOP,PDF_MARGIN_RIGHT);
         $pdf->setFont('times', '', 14, '', true);
         $pdf->setPageOrientation('L');
+        //$pdf->ima
         $pdf->AddPage();
-        $page ='<div style="display:flex;justify-content: center;margin:0px;padding:0px;">';
-        // <h2 style="text-align:center;font-weight:normal;flex-grow:1; ">UNIVERSITE PAYE-PAYE <br/>FACULTE DES SCIENCES ET TECHNIQUES</h2>
-        // </div>
-        $page .='<h2 style="text-align:center;font-weight:normal;">UNIVERSITE PAYE-PAYE <br/>FACULTE DES SCIENCES ET TECHNIQUES</h2>
-        <h4 style="text-align:center;">DEPARTEMENT:MIAGE</h4>
+        $page ='<table style="width:100%;">
+        <tr>
+        <td style="width:20%;vertical-align:middle;">
+        <img src="'.base_url('/public/assets/images/obama.jfif').'" width="100" height="80">
+        </td>
+        <td style="text-align:center;font-weight:normal;width:60%; vertical-align:middle;">
+         UNIVERSITE BARACK OBAMA <br/>FACULTE DES SCIENCES ET TECHNIQUES
+        </td>
+         </tr>
+         </table>';
+        //$page .='<h2 style="text-align:center;font-weight:normal;">UNIVERSITE PAYE-PAYE <br/>FACULTE DES SCIENCES ET TECHNIQUES</h2>
+        $page .='<h4 style="text-align:center;">DEPARTEMENT:MIAGE</h4>
         <h4 style="text-align:center;">Niveau:LICENCE 4 PDW/GENIE LOGICIEL</h4>
         <h3 style="text-align:center;">SEMESTRE 8</h3>';
         $page .= '<table border="1" cellpadding="3" style="font-weight:semibold;border-collapse:collapse;margin:0;" width=100%>
