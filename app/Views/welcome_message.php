@@ -67,6 +67,7 @@
   class="container border p-3 border-black">
   
   <h1>Pdf V1</h1>
+  <img src="<?= base_url('/public/assets/images/tangy.jpg')?>">
   <h2 style="text-align:center;font-weight:normal;">UNIVERSITE PAYE-PAYE <br/>FACULTE DES SCIENCES ET TECHNIQUES</h2>
   <h4 style="text-align:center;">DEPARTEMENT:MIAGE</h4>
         <h4 style="text-align:center;">Niveau:LICENCE 4 PDW/GENIE LOGICIEL</h4>
