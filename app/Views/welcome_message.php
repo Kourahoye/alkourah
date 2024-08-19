@@ -32,17 +32,17 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Action
+            <i class="fa fa-download" aria-hidden="true">Download pdfs</i>
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="<?= base_url('public/pdf') ?>">Dowload</a></li>
+            <li><a class="dropdown-item"  href="<?= base_url('public/betterpdf') ?>" title="pdf avec fusion">Pdf V2</a></li>
+            <li><a class="dropdown-item" href="<?= base_url('public/pdf') ?>" title="pdf sans fusion">Pdf V1</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="#" title="">Something else here</a></li>
           </ul>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('public/pdf') ?>">Dowload</a>
+        <a class="nav-link" href="<?= base_url('public/betterpdf') ?>" title="pdf avec fusion">Dowload</a>
           <!-- <a class="nav-link disabled" aria-disabled="true">Disabled</a> -->
         </li>
       </ul>
@@ -63,13 +63,17 @@
 
 
 <!-- CONTENT -->
-<h2 style="text-align:center;font-weight:normal;">UNIVERSITE PAYE-PAYE <br/>FACULTE DES SCIENCES ET TECHNIQUES</h2>
-        <h4 style="text-align:center;">DEPARTEMENT:MIAGE</h4>
+<div
+  class="container border p-3 border-black">
+  
+  <h1>Pdf V1</h1>
+  <h2 style="text-align:center;font-weight:normal;">UNIVERSITE PAYE-PAYE <br/>FACULTE DES SCIENCES ET TECHNIQUES</h2>
+  <h4 style="text-align:center;">DEPARTEMENT:MIAGE</h4>
         <h4 style="text-align:center;">Niveau:LICENCE 4 PDW/GENIE LOGICIEL</h4>
         <h3 style="text-align:center;">SEMESTRE 8</h3>';
-<table style="border: 2px solid; border-collapse:collapse;font-weight:semibold;" width=100%>
+        <table style="border: 2px solid; border-collapse:collapse;font-weight:semibold;" width=100%>
     <thead>
-        <tr>
+        <tr style="border: 1px solid; padding:2px">
             <th style="border: 1px solid; padding:2px">Jours</th>
             <th style="border: 1px solid; padding:2px">Heures</th>
             <th style="border: 1px solid; padding:2px">Matiere</th>
@@ -94,12 +98,107 @@
                         </td>
                         <?php endforeach;?>
                     </td>
-                </tr>
+                  </tr>
                         <?php endforeach; ?>
                 <!-- </tr> -->
                     <?php endforeach;?>
                 </tbody>
                 </table>
+</div>
+
+<div  class="container mt-5 border p-3 border-black">
+  <h1>Pdf V2</h1>
+  <?php
+  // $page ='<div style="display:flex;justify-content: center;margin:0px;padding:0px;">';
+  $page ='<h2 style="text-align:center;font-weight:normal;">UNIVERSITE PAYE-PAYE <br/>FACULTE DES SCIENCES ET TECHNIQUES</h2>
+        <h4 style="text-align:center;">DEPARTEMENT:MIAGE</h4>
+        <h4 style="text-align:center;">Niveau:LICENCE 4 PDW/GENIE LOGICIEL</h4>
+        <h3 style="text-align:center;">SEMESTRE 8</h3>';
+        $page .= '<table cellpadding="3" style="border: 2px solid; border-collapse:collapse;font-weight:semibold;" width=100%>
+        <thead>
+            <tr style="border: 1px solid; padding:2px">
+                <th style="font-weight:bold;">Jours</th>
+                <th style="font-weight:bold;">Heures</th>
+                <th style="font-weight:bold;">Matiere</th>
+                <th style="font-weight:bold;">Professeur</th>
+                <th style="font-weight:bold;">Salle</th>
+                </tr>
+                </thead>
+                <tbody>';
+                foreach ($datas as $data):
+                $uniqueProfPrinted = false;
+                $uniqueSallePrinted = false;
+                $i = 0; foreach ($data['Heures'] as $heure ):
+                    $page .= '<tr style="border: 1px solid; padding:2px">';
+                    //gere fusion jour
+                    if ($i == 0):
+                        $page .= '<td style="border: 1px solid; padding:2px" rowspan="'.sizeof($data['Heures']).'">'. $data['jour'] .'</td>';
+                        $i=1;
+                    endif;
+                       $nbProf = 0;
+                       $nbsalle = 0;
+                       $profCible = $heure['professeur'];
+                       $salleCible = $heure['salle'];
+                     //verifie si nbprof  = nbmatiere en comptant
+                    foreach ($data['Heures'] as $key1 => $val)
+                    {
+                        foreach ($val as $key => $value) {
+                            if ($key == 'professeur') {
+                               //  print_r($value);
+                               if ($value == $profCible) {
+                                    $nbProf++;
+                                }
+                             }
+                         }
+                    }
+                     //verifie si nbsalle  = nbmatiere en comptant
+                    foreach ($data['Heures'] as $key1 => $val)
+                    {
+                        foreach ($val as $key => $value) {
+                            if ($key == 'salle') {
+                               if ($value == $salleCible) {
+                                    $nbsalle++;
+                                }
+                             }
+                         }
+                    }
+
+                        $page .= '<td style="border: 1px solid; padding:2px">'.$heure['heure'].'</td>';
+                        if ($nbProf == sizeof($data['Heures']) || $nbsalle == sizeof($data['Heures']) ) {
+                            $page .= '<td style="border: 1px solid; padding:2px">'.$heure['matiere'].'</td>';
+                            if ($nbProf == sizeof($data['Heures'])){
+                                if (!$uniqueProfPrinted) {
+                                    $page .= '<td rowspan="'. $nbProf .'">'.$heure['professeur'].'</td>';
+                                    $uniqueProfPrinted = true;
+                                }
+                            }else{
+                                $page .= '<td style="border: 1px solid; padding:2px">'.$heure['professeur'].'</td>';
+                            }
+                            if ($nbsalle == sizeof($data['Heures'])) {
+                                if (!$uniqueSallePrinted) {
+                                    $page .= '<td style="border: 1px solid; padding:2px" rowspan="'. $nbsalle .'">'.$heure['salle'].'</td>';
+                                    $uniqueSallePrinted = true;
+                                }
+                            }else{
+                                $page .= '<td style="border: 1px solid; padding:2px">'.$heure['salle'].'</td>';
+                            }
+                        }else{
+                            $page .= '<td style="border: 1px solid; padding:2px">'.$heure['matiere'].'</td>';
+                            $page .= '<td style="border: 1px solid; padding:2px">'.$heure['professeur'].'</td>';
+                            $page .= '<td style="border: 1px solid; padding:2px">'.$heure['salle'].'</td>';
+                        }
+                $page .= '</tr>';
+            endforeach;
+        // $page .= '</tr>';
+        endforeach;
+        $page .= '</tbody></table>
+        <div style="text-align:right;">
+        Le chef de Departement <br/> <br/> Mr Bah Mamadou Tidiane
+        </div>
+        ';
+        echo($page);
+        ?>
+</div>
 <!-- FOOTER: DEBUG INFO + COPYRIGHTS -->
 <!-- <footer>
     <div class="environment">

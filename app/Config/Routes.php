@@ -7,3 +7,4 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->get('/pdf','Home::pdf');
+$routes->get('/betterpdf','Home::betterPdf');
