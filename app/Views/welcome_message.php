@@ -63,23 +63,34 @@
 
 
 <!-- CONTENT -->
-
-<div  class="container mt-5 border p-3 border-black">
-  <h1>Pdf V2</h1>
+<div  class="container my-3 border p-3 border-black shadow bg-light">
   <?php
-  // $page ='<div style="display:flex;justify-content: center;margin:0px;padding:0px;">';
-  $page ='<h2 style="text-align:center;font-weight:normal;">UNIVERSITE PAYE-PAYE <br/>FACULTE DES SCIENCES ET TECHNIQUES</h2>
-        <h4 style="text-align:center;">DEPARTEMENT:MIAGE</h4>
-        <h4 style="text-align:center;">Niveau:LICENCE 4 PDW/GENIE LOGICIEL</h4>
-        <h3 style="text-align:center;">SEMESTRE 8</h3>';
+        $page ='<table style="width:100%;" cellpadding="3px">
+        <tr style="margin:5px;">
+        <td rowspan="4" style="width:20%;vertical-align:middle;">
+        <img src="'.base_url('/public/assets/images/obama.jfif').'" width="100" height="80">
+        </td>
+        <td style="text-align:center;text-align:center;font-weight:bold;width:60%; vertical-align:middle;">
+        UNIVERSITE BARACK OBAMA <br/>'.$classe['faculte'].'
+        </td>
+        <td rowspan="4" style="width:20%"></td>
+        </tr>
+        <tr stule="margin:5px;">
+        <td style="text-align:center;text-align:center;font-weight:bold;">DEPARTEMENT:'.$classe['departement'].'</td>
+        </tr>
+        <tr stule="margin:5px;">
+        <td style="text-align:center;text-align:center;font-weight:bold;">Niveau:'.$classe['licence'].'</td>
+        </tr>
+        </table>
+        <h3 style="text-align:center;">'.$classe['semestre'].'</h3>';
         $page .= '<table cellpadding="3" style="border: 2px solid; border-collapse:collapse;font-weight:semibold;" width=100%>
         <thead>
             <tr style="border: 1px solid; padding:2px">
-                <th style="font-weight:bold;">Jours</th>
-                <th style="font-weight:bold;">Heures</th>
-                <th style="font-weight:bold;">Matiere</th>
-                <th style="font-weight:bold;">Professeur</th>
-                <th style="font-weight:bold;">Salle</th>
+                <th style="border: 1px solid;font-weight:bold;text-align:center;">Jours</th>
+                <th style="border: 1px solid;font-weight:bold;text-align:center;">Heures</th>
+                <th style="border: 1px solid;font-weight:bold;text-align:center;">Matiere</th>
+                <th style="border: 1px solid;font-weight:bold;text-align:center;">Professeur</th>
+                <th style="border: 1px solid;font-weight:bold;text-align:center;">Salle</th>
                 </tr>
                 </thead>
                 <tbody>';
@@ -90,7 +101,7 @@
                     $page .= '<tr style="border: 1px solid; padding:2px">';
                     //gere fusion jour
                     if ($i == 0):
-                        $page .= '<td style="border: 1px solid; padding:2px" rowspan="'.sizeof($data['Heures']).'">'. $data['jour'] .'</td>';
+                        $page .= '<td style="text-align:center;border: 1px solid; padding:2px" rowspan="'.sizeof($data['Heures']).'">'. $data['jour'] .'</td>';
                         $i=1;
                     endif;
                        $nbProf = 0;
@@ -121,36 +132,36 @@
                          }
                     }
 
-                        $page .= '<td style="border: 1px solid; padding:2px">'.$heure['heure'].'</td>';
+                        $page .= '<td style="text-align:center;border: 1px solid; padding:2px">'.$heure['heure'].'</td>';
                         if ($nbProf == sizeof($data['Heures']) || $nbsalle == sizeof($data['Heures']) ) {
-                            $page .= '<td style="border: 1px solid; padding:2px">'.$heure['matiere'].'</td>';
+                            $page .= '<td style="text-align:center;border: 1px solid; padding:2px">'.$heure['matiere'].'</td>';
                             if ($nbProf == sizeof($data['Heures'])){
                                 if (!$uniqueProfPrinted) {
-                                    $page .= '<td rowspan="'. $nbProf .'">'.$heure['professeur'].'</td>';
+                                    $page .= '<td style="text-align:center;" rowspan="'. $nbProf .'">'.$heure['professeur'].'</td>';
                                     $uniqueProfPrinted = true;
                                 }
                             }else{
-                                $page .= '<td style="border: 1px solid; padding:2px">'.$heure['professeur'].'</td>';
+                                $page .= '<td style="text-align:center;border: 1px solid; padding:2px">'.$heure['professeur'].'</td>';
                             }
                             if ($nbsalle == sizeof($data['Heures'])) {
                                 if (!$uniqueSallePrinted) {
-                                    $page .= '<td style="border: 1px solid; padding:2px" rowspan="'. $nbsalle .'">'.$heure['salle'].'</td>';
+                                    $page .= '<td style="text-align:center;border: 1px solid; padding:2px" rowspan="'. $nbsalle .'">'.$heure['salle'].'</td>';
                                     $uniqueSallePrinted = true;
                                 }
                             }else{
-                                $page .= '<td style="border: 1px solid; padding:2px">'.$heure['salle'].'</td>';
+                                $page .= '<td style="text-align:center;border: 1px solid; padding:2px">'.$heure['salle'].'</td>';
                             }
                         }else{
-                            $page .= '<td style="border: 1px solid; padding:2px">'.$heure['matiere'].'</td>';
-                            $page .= '<td style="border: 1px solid; padding:2px">'.$heure['professeur'].'</td>';
-                            $page .= '<td style="border: 1px solid; padding:2px">'.$heure['salle'].'</td>';
+                            $page .= '<td style="text-align:center;border: 1px solid; padding:2px">'.$heure['matiere'].'</td>';
+                            $page .= '<td style="text-align:center;border: 1px solid; padding:2px">'.$heure['professeur'].'</td>';
+                            $page .= '<td style="text-align:center;border: 1px solid; padding:2px">'.$heure['salle'].'</td>';
                         }
                 $page .= '</tr>';
             endforeach;
         // $page .= '</tr>';
         endforeach;
         $page .= '</tbody></table>
-        <div style="text-align:right;">
+        <div style="text-align:right;font-weight:bold;">
         Le chef de Departement <br/> <br/> Mr Bah Mamadou Tidiane
         </div>
         ';

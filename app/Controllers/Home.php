@@ -8,6 +8,14 @@ class Home extends BaseController
 {
     public function index(): string
     {
+        $classe = [
+            "faculte" => "FACULTE DES SCIENCES ET TECHNIQUES",
+            "departement" => "MIAGE",
+            "licence" => "LICENCE 4 PDW/GENIE LOGICIEL",
+            "semestre" => "SEMESTRE 8",
+            "chef-dept" => "Mr Bah Mamadou Tidiane"
+
+        ];
         $datas =[
             [
                'jour' => 'Mardi',
@@ -16,13 +24,13 @@ class Home extends BaseController
                             'heure' => '8h-12h',
                             'matiere' => 'Info Mobile',
                             'professeur' => 'Alpha YAYA diallo',
-                            'salle' => 'sall 5 bloc A'
+                            'salle' => 'sall 4 bloc C'
                         ],
                         [
                             'heure' => '12h-16h',
                             'matiere' => 'Supervision des reseaux informatique',
                             'professeur' => 'Mamadou rafiou bah',
-                            'salle' => 'sall 5 bloc A'
+                            'salle' => 'sall 4 bloc C'
                         ]
                     ]
             ],
@@ -50,7 +58,7 @@ class Home extends BaseController
                         'heure' => '8h-12h',
                         'matiere' => 'Blablabla',
                         'professeur' => 'Doumbouya',
-                        'salle' => 'sall 4 bloc A'
+                        'salle' => 'sall 4 bloc C'
                     ],
                     [
                         'heure' => '12-16h',
@@ -67,139 +75,19 @@ class Home extends BaseController
                         'heure' => '8h-12h',
                         'matiere' => 'CCNA network security',
                         'professeur' => 'John doe',
-                        'salle' => 'sall 5 bloc A'
+                        'salle' => 'sall 5 bloc C'
                     ],
                     [
                         'heure' => '12h-16h',
                         'matiere' => 'Supervision des reseaux informatique',
-                        'professeur' => 'John doe',
-                        'salle' => 'sall 5 bloc A'
+                        'professeur' => 'Jane doe',
+                        'salle' => 'sall 5 bloc B'
                     ]
                 ]
             ]
         ];
-        return view('welcome_message',['datas'=>$datas]);
+        return view('welcome_message',['datas'=>$datas,'classe'=>$classe]);
     }
-    public function pdf()
-    {
-        $datas =[
-            [
-               'jour' => 'Mardi',
-                'Heures' => [
-                        [
-                            'heure' => '8h-12h',
-                            'matiere' => 'Info Mobile',
-                            'professeur' => 'Alpha YAYA diallo',
-                            'salle' => 'sall 7 bloc B'
-                        ],
-                        [
-                            'heure' => '12h-16h',
-                            'matiere' => 'Supervision des reseaux informatique',
-                            'professeur' => 'Mamadou rafiou bah',
-                            'salle' => 'sall 5 bloc A'
-                        ]
-                    ]
-            ],
-            [
-                'jour' => 'Mercredi',
-                'Heures' => [
-                    [
-                        'heure' => '8h-12h',
-                        'matiere' => 'Technologie huawei',
-                        'professeur' => 'Mamadou rafiou bah',
-                        'salle' => 'sall 8 bloc B'
-                    ],
-                    [
-                        'heure' => '12h-16h',
-                        'matiere' => 'Supervision des reseaux informatique',
-                        'professeur' => 'Mamadou rafiou bah',
-                        'salle' => 'sall 8 bloc B'
-                    ],
-                ]
-           ],
-           [
-                'jour' => 'jeudi',
-                'Heures' => [
-                    [
-                        'heure1' => '8h-12h',
-                        'matiere' => 'CCNA network security',
-                        'professeur' => 'Mamadou bilo doumbouya',
-                        'salle' => 'sall 8 bloc B'
-                    ]
-                ]
-                    ],
-           [
-                'jour' => 'samedi',
-                'Heures' => [
-                    [
-                        'heure1' => '8h-12h',
-                        'matiere' => 'CCNA network security',
-                        'professeur' => 'Mamadou bilo doumbouya',
-                        'salle' => 'sall 8 bloc C'
-                    ],
-                    [
-                        'heure' => '12h-16h',
-                        'matiere' => 'Supervision des reseaux informatique',
-                        'professeur' => 'Mamadou rafiou bah',
-                        'salle' => 'sall 5 bloc A'
-                    ]
-                ]
-            ]
-        ];
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION,PDF_UNIT,PDF_PAGE_FORMAT,true,'UTF-8',false);
-        $pdf->setCreator(PDF_CREATOR);
-        $pdf->setAuthor('kourahoye');
-        $pdf->setTitle('pdf');
-        $pdf->setSubject('un pdf');
-        $pdf->setKeywords('TCPDF,PDF,exemple,test,guide');
-        $pdf->setPrintHeader(false);
-        $pdf->setPrintFooter(false);
-        //$pdf->setMargins(PDF_MARGIN_LEFT,PDF_MARGIN_TOP,PDF_MARGIN_RIGHT);
-        $pdf->setFont('times', '', 14, '', true);
-        $pdf->setPageOrientation('L');
-        $pdf->AddPage();
-        //$page = view('pdfer',['datas'=>$datas]);
-        $page ='<h2 style="text-align:center;font-weight:normal;">UNIVERSITE PAYE-PAYE <br/>FACULTE DES SCIENCES ET TECHNIQUES</h2>
-        <h4 style="text-align:center;">DEPARTEMENT:MIAGE</h4>
-        <h4 style="text-align:center;">Niveau:LICENCE 4 PDW/GENIE LOGICIEL</h4>
-        <h3 style="text-align:center;">SEMESTRE 8</h3>';
-        $page .= '<table border="1" cellpadding="3" style="font-weight:semibold;border-collapse:collapse;margin:0;" width=100%>
-        <thead>
-            <tr>
-                <th style="font-weight:bold;">Jours</th>
-                <th style="font-weight:bold;">Heures</th>
-                <th style="font-weight:bold;">Matiere</th>
-                <th style="font-weight:bold;">Professeur</th>
-                <th style="font-weight:bold;">Salle</th>
-        </tr>
-        </thead>
-        <tbody>';
-        foreach ($datas as $data):
-            //$page .= '<tr style="border: 3px solid;">';
-                $i = 0; foreach ($data['Heures'] as $heure ):
-                $page .= '<tr>';
-                if ($i == 0):
-                    $page .= '<td style="text-align:center;" rowspan="'.sizeof($data['Heures']).'">'. $data['jour'] .'</td>';
-                    $i=1;
-                endif;
-                foreach ($heure as $value):
-                    $page .= '<td style="text-align:center;">'.$value.'</td>';
-                endforeach;
-                $page .= '</tr>';
-            endforeach;
-        // $page .= '</tr>';
-        endforeach;
-        $page .= '</tbody></table>
-        <div style="text-align:right;">
-        Le chef de Departement <br/> <br/> Mr Bah Mamadou Tidiane
-        </div>
-        ';
-             // return $page;
-        $this->response->setContentType('application/pdf');
-            $pdf->writeHTML($page);
-            $pdf->Output('emploi.pdf','I');
-    }
-
     public function betterPdf()
     {
         // un emploi du temps complet
@@ -214,13 +102,13 @@ class Home extends BaseController
                             'heure' => '8h-12h',
                             'matiere' => 'Info Mobile',
                             'professeur' => 'Alpha YAYA diallo',
-                            'salle' => 'sall 5 bloc A'
+                            'salle' => 'sall 5 bloc C'
                         ],
                         [
                             'heure' => '12h-16h',
                             'matiere' => 'Supervision des reseaux informatique',
                             'professeur' => 'Mamadou rafiou bah',
-                            'salle' => 'sall 5 bloc A'
+                            'salle' => 'sall 4 bloc C'
                         ]
                     ]
             ],
@@ -254,7 +142,7 @@ class Home extends BaseController
                         'heure' => '12-16h',
                         'matiere' => 'Security',
                         'professeur' => 'Doumbouya',
-                        'salle' => 'sall 4 bloc A'
+                        'salle' => 'sall 4 bloc B'
                     ],
                 ]
                     ],
@@ -265,17 +153,27 @@ class Home extends BaseController
                         'heure' => '8h-12h',
                         'matiere' => 'CCNA network security',
                         'professeur' => 'John doe',
-                        'salle' => 'sall 5 bloc A'
+                        'salle' => 'sall 5 bloc C'
                     ],
                     [
                         'heure' => '12h-16h',
                         'matiere' => 'Supervision des reseaux informatique',
-                        'professeur' => 'John doe',
-                        'salle' => 'sall 5 bloc A'
+                        'professeur' => 'Jane doe',
+                        'salle' => 'sall 5 bloc B'
                     ]
                 ]
             ]
         ];
+        // une classe
+        $classe = [
+            "faculte" => "FACULTE DES SCIENCES ET TECHNIQUES",
+            "departement" => "MIAGE",
+            "licence" => "LICENCE 4 PDW/GENIE LOGICIEL",
+            "semestre" => "SEMESTRE 8",
+            "chef-dept" => "Mr Bah Mamadou Tidiane"
+
+        ];
+
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION,PDF_UNIT,PDF_PAGE_FORMAT,true,'UTF-8',false);
         $pdf->setCreator(PDF_CREATOR);
         $pdf->setAuthor('kourahoye');
@@ -289,28 +187,33 @@ class Home extends BaseController
         $pdf->setPageOrientation('L');
         //$pdf->ima
         $pdf->AddPage();
-        $page ='<table style="width:100%;">
-        <tr>
-        <td style="width:20%;vertical-align:middle;">
+        $page ='<table style="width:100%;" cellpadding="3px">
+        <tr style="margin:5px;">
+        <td rowspan="4" style="width:20%;vertical-align:middle;">
         <img src="'.base_url('/public/assets/images/obama.jfif').'" width="100" height="80">
         </td>
-        <td style="text-align:center;font-weight:normal;width:60%; vertical-align:middle;">
-         UNIVERSITE BARACK OBAMA <br/>FACULTE DES SCIENCES ET TECHNIQUES
+        <td style="text-align:center;font-weight:bold;width:60%; vertical-align:middle;">
+         UNIVERSITE BARACK OBAMA <br/>'.$classe['faculte'].'
         </td>
+        <td rowspan="4" style="width:20%"></td>
          </tr>
-         </table>';
-        //$page .='<h2 style="text-align:center;font-weight:normal;">UNIVERSITE PAYE-PAYE <br/>FACULTE DES SCIENCES ET TECHNIQUES</h2>
-        $page .='<h4 style="text-align:center;">DEPARTEMENT:MIAGE</h4>
-        <h4 style="text-align:center;">Niveau:LICENCE 4 PDW/GENIE LOGICIEL</h4>
-        <h3 style="text-align:center;">SEMESTRE 8</h3>';
-        $page .= '<table border="1" cellpadding="3" style="font-weight:semibold;border-collapse:collapse;margin:0;" width=100%>
+         <tr style="margin:5px;">
+         <td style="text-align:center;font-weight:bold;">DEPARTEMENT:'.$classe['departement'].'</td>
+         </tr>
+         <tr style="margin:5px;">
+        <td style="text-align:center;font-weight:bold;">Niveau:'.$classe['licence'].'</td>
+        </tr>
+        </table>
+        <h3 style="text-align:center;margin:2em;">'.$classe['semestre'].'</h3>
+        ';
+        $page .= '<table border="1" cellpadding="3" style="font-weight:semibold;border-collapse:collapse;" width=100%>
         <thead>
             <tr>
-                <th style="font-weight:bold;">Jours</th>
-                <th style="font-weight:bold;">Heures</th>
-                <th style="font-weight:bold;">Matiere</th>
-                <th style="font-weight:bold;">Professeur</th>
-                <th style="font-weight:bold;">Salle</th>
+            <th style="font-weight:bold;text-align:center;">Heures</th>
+            <th style="font-weight:bold;text-align:center;">Jours</th>
+                <th style="font-weight:bold;text-align:center;">Matiere</th>
+                <th style="font-weight:bold;text-align:center;">Professeur</th>
+                <th style="font-weight:bold;text-align:center;">Salle</th>
                 </tr>
                 </thead>
                 <tbody>';
@@ -386,10 +289,9 @@ class Home extends BaseController
             endforeach;
         endforeach;
         $page .= '</tbody></table>
-        <div style="text-align:right;">
-        Le chef de Departement <br/> <br/> Mr Bah Mamadou Tidiane
-        </div>
-        ';
+        <p style="text-align:right;margin-top:5px;font-weight:bold;">
+        Le chef de Departement <br/><br/><br/>'.$classe['chef-dept'].'
+        </p>';
         //return $page; // page html test
         $this->response->setContentType('application/pdf');
         $pdf->writeHTML($page);
