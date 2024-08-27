@@ -35,8 +35,9 @@
             <i class="fa fa-download" aria-hidden="true">Download pdfs</i>
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item"  href="<?= base_url('public/betterpdf') ?>" title="pdf avec fusion">Pdf V2</a></li>
-            <li><a class="dropdown-item" href="<?= base_url('public/pdf') ?>" title="pdf sans fusion">Pdf V1</a></li>
+            <li><a class="dropdown-item"  href="<?= base_url('public/betterpdf') ?>" title="pdf avec data structure 1">Pdf V1</a></li>
+            <li><a class="dropdown-item" href="<?= base_url('public/pdf') ?>" title="pdf avec data structure 2">Pdf V2</a></li>
+            <li><a class="dropdown-item" href="<?= base_url('public/pdf2') ?>" title="pdf avec data structure 3">Pdf V3</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#" title="">Something else here</a></li>
           </ul>
